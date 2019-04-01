@@ -1,18 +1,25 @@
+import algs.AlgorithmI
+import algs.FastDownMethod
+import algs.StepDivideMethod
+import containers.DataContainer
 import func.Vector
 
 
 fun main() {
-    val v1 = Vector(listOf(0.0, 2.0))
-    val v2 = Vector(listOf(1.0, 2.0))
+    val algs = listOf(StepDivideMethod(), FastDownMethod())
+    val bannedAlgs = emptyList<AlgorithmI>()
 
-    val v3:Vector = v1 * 5.0
-    val v4 = v2 - v1
-    val v5 = v1 - v4
-    println(v1)
-    println(v2)
-    println(v3)
-    println(v4)
-    println(v5)
+    val args = mapOf("a" to 5.0, "u" to Vector(listOf(-0.3611, 1.8056)))
+
+    var data = ArrayList<DataContainer>()
+    for (alg in algs) {
+        if (bannedAlgs.contains(alg)) continue
+
+        val container = alg.apply(args)
+        data.add(container)
+    }
+
+    data.forEach { println("$it\n") }
 }
 
 public operator fun Double.times(grad: Vector): Vector {

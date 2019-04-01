@@ -17,6 +17,7 @@ class GlobalFunc {
             //(u1 - u2)^2 + u1 - 5u2
         }
 
+
         fun JDiff_U1(U: Vector): Double {
             val u1 = U[0]
             val u2 = U[1]
@@ -47,5 +48,13 @@ class GlobalFunc {
             return sqrt(gradValue)
         }
 
+        fun module(U: Vector): Double {
+            var value = 0.0
+
+            for (point in U) {
+                value += point.pow(2)
+            }
+            return sqrt(value)
+        }
     }
 }

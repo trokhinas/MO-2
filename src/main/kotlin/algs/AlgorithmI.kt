@@ -4,5 +4,5 @@ package algs
 import containers.DataContainer
 
 interface AlgorithmI {
-    fun apply(args: HashMap<String, Any>) : DataContainer
+    fun apply(args: Map<String, Any>) : DataContainer
 }
