@@ -1,15 +1,16 @@
 import algs.AlgorithmI
-import algs.FastDownMethod
-import algs.StepDivideMethod
+import algs.multi.FastDownMethod
+import algs.multi.NewtonsMethod
+import algs.multi.StepDivideMethod
 import containers.DataContainer
 import func.Vector
 
 
 fun main() {
-    val algs = listOf(StepDivideMethod(), FastDownMethod())
+    val algs = listOf(StepDivideMethod(), FastDownMethod(), NewtonsMethod())
     val bannedAlgs = emptyList<AlgorithmI>()
 
-    val args = mapOf("a" to 5.0, "u" to Vector(listOf(-0.3611, 1.8056)))
+    val args = mapOf("a" to 0.1, "u" to Vector(listOf(1.0, 1.0)))
 
     var data = ArrayList<DataContainer>()
     for (alg in algs) {
@@ -22,6 +23,3 @@ fun main() {
     data.forEach { println("$it\n") }
 }
 
-public operator fun Double.times(grad: Vector): Vector {
-    return grad.times(this)
-}

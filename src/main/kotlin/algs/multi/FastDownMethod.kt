@@ -1,5 +1,7 @@
-package algs
+package algs.multi
 
+import algs.AbstractAlgorithm
+import algs.single.BisectionMethod
 import containers.AlgorithmDataContainer
 import containers.DataContainer
 import func.GlobalFunc
@@ -30,7 +32,7 @@ class FastDownMethod: AbstractAlgorithm() {
 
             val method = BisectionMethod()
             val a = method.apply(mapOf("a" to 0.0, "b" to 1.0, "u0" to u))
-            u -= a.solution[0] * grad
+            u -= grad.times(a.solution[0])
         }
         throw Error(iterationErrorMsg)
     }

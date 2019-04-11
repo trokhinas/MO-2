@@ -1,5 +1,6 @@
-package algs
+package algs.single
 
+import algs.AbstractAlgorithm
 import containers.AlgorithmDataContainer
 import func.GlobalFunc
 import func.Vector
@@ -45,4 +46,8 @@ class BisectionMethod: AbstractAlgorithm() {
         }
         throw Error(iterationErrorMsg)
     }
+}
+
+private operator fun Double.times(gradient: Vector): Vector {
+    return gradient * this
 }

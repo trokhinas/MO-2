@@ -1,12 +1,13 @@
-package algs
+package algs.multi
 
+import algs.AbstractAlgorithm
 import containers.AlgorithmDataContainer
 import containers.DataContainer
 import func.GlobalFunc
 import func.Vector
 
 
-public class StepDivideMethod: AbstractAlgorithm() {
+class StepDivideMethod: AbstractAlgorithm() {
     override val algName: String get() = "Метод дробления шага пополам"
     override val requiredArgs: List<String> get() = listOf("a", "u")
 
@@ -17,33 +18,28 @@ public class StepDivideMethod: AbstractAlgorithm() {
         checkArgs(args)
 
         var a = args.getValue("a") as Double
-        var u = args.getValue("u") as Vector
+        var u0 = args.getValue("u") as Vector
 
         for (iterations in 1 until maxIterations) {
-            val grad = GlobalFunc.gradient(u)
+            val grad = GlobalFunc.gradient(u0)
 
             if (GlobalFunc.module(grad) < eps) {
                 return AlgorithmDataContainer(
-                    solution = u,
+                    solution = u0,
                     iteration = iterations,
                     epsilon = eps,
                     algName = algName
                 )
             }
 
-            var u1 = u - a * grad
-            var JU = GlobalFunc.J(u)
-            var JU1 = GlobalFunc.J(u1)
-            while (GlobalFunc.J(u1) >= GlobalFunc.J(u)) {
+            var u1 = u0 - grad * a
+            while (GlobalFunc.J(u1) >= GlobalFunc.J(u0)) {
                 a /= 2
-                u1 = u - a * grad
+                u1 = u0 - grad * a
             }
-            u = u1
+            u0 = u1
         }
         throw Error(iterationErrorMsg)
     }
 }
 
-public operator fun Double.times(grad: Vector): Vector {
-    return grad.times(this)
-}
