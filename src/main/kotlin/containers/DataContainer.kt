@@ -1,9 +1,10 @@
 package containers
 
-import func.Vector
+import extensions.toVector
+import matrix.AbstractMatrix
 
-abstract class DataContainer(var solution: Vector, var iteration: Int, var epsilon: Double) {
+abstract class DataContainer(var solution: AbstractMatrix, var iteration: Int, var epsilon: Double) {
     override fun toString(): String {
-        return "Решение = $solution,\nитераций = $iteration,\neps = $epsilon"
+        return "Решение = ${solution.toVector()}\nитераций = $iteration\neps = $epsilon"
     }
 }

@@ -1,8 +1,8 @@
 package containers
 
-import func.Vector
+import matrix.AbstractMatrix
 
-class AlgorithmDataContainer(solution: Vector, iteration: Int, epsilon: Double, val algName: String)
+class AlgorithmDataContainer(solution: AbstractMatrix, iteration: Int, epsilon: Double, val algName: String)
     : DataContainer(solution, iteration, epsilon) {
 
     override fun toString(): String {

@@ -1,8 +1,12 @@
-package algs
+package algs.single
 
+import algs.AbstractAlgorithm
+import extensions.times
 import containers.AlgorithmDataContainer
+import extensions.minus
 import func.GlobalFunc
-import func.Vector
+import matrix.AbstractMatrix
+import matrix.Matrix
 import java.lang.Math.abs
 
 class BisectionMethod: AbstractAlgorithm() {
@@ -18,13 +22,13 @@ class BisectionMethod: AbstractAlgorithm() {
         var a = args.getValue("a") as Double
         var b = args.getValue("b") as Double
         val eps = GlobalFunc.epsilon
-        val u1 = args.getValue("u0") as Vector
+        val u1 = args.getValue("u0") as AbstractMatrix
 
         for(iterations in 1 until maxIterations) {
             val a1 = (b + a - sigma) / 2
             val a2 = (b + a + sigma) / 2
-            val f1 = GlobalFunc.J(u1 - a1 * GlobalFunc.gradient(u1))
-            val f2 = GlobalFunc.J(u1 - a2 * GlobalFunc.gradient(u1))
+            val f1 = GlobalFunc.J(u1 - GlobalFunc.gradient(u1) * a1)
+            val f2 = GlobalFunc.J(u1 - GlobalFunc.gradient(u1) * a2)
 
             when {
                 f1 < f2 -> b = a2
@@ -37,7 +41,9 @@ class BisectionMethod: AbstractAlgorithm() {
 
             if(abs(b - a) < eps)
                 return AlgorithmDataContainer(
-                    solution = Vector(listOf((b + a) / 2)),
+                    solution = Matrix(arrayOf(
+                        doubleArrayOf((b + a) / 2))
+                    ),
                     iteration = iterations,
                     epsilon = eps,
                     algName = algName

@@ -1,9 +1,13 @@
-package algs
+package algs.multi
 
+import algs.AbstractAlgorithm
+import algs.single.BisectionMethod
 import containers.AlgorithmDataContainer
 import containers.DataContainer
+import extensions.minus
 import func.GlobalFunc
-import func.Vector
+import matrix.AbstractMatrix
+import extensions.times
 
 class FastDownMethod: AbstractAlgorithm() {
     override val algName: String get() = "Алгоритм наискорейшего спуска"
@@ -13,7 +17,7 @@ class FastDownMethod: AbstractAlgorithm() {
     override fun apply(args: Map<String, Any>): DataContainer {
         checkArgs(args)
 
-        var u = args.getValue("u") as Vector
+        var u = args.getValue("u") as AbstractMatrix
         val eps = GlobalFunc.epsilon
 
         for (iteration in 1 until maxIterations) {
@@ -30,7 +34,7 @@ class FastDownMethod: AbstractAlgorithm() {
 
             val method = BisectionMethod()
             val a = method.apply(mapOf("a" to 0.0, "b" to 1.0, "u0" to u))
-            u -= a.solution[0] * grad
+            u -= grad * a.solution[0, 0]
         }
         throw Error(iterationErrorMsg)
     }
