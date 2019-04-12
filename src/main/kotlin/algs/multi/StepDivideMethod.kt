@@ -5,6 +5,7 @@ import containers.AlgorithmDataContainer
 import containers.DataContainer
 import extensions.minus
 import extensions.times
+import func.FuncService
 import func.GlobalFunc
 import matrix.AbstractMatrix
 
@@ -15,15 +16,19 @@ class StepDivideMethod: AbstractAlgorithm() {
 
 
     private val eps = GlobalFunc.epsilon
+    lateinit var funcService: FuncService
+
 
     override fun apply(args: Map<String, Any>): DataContainer {
         checkArgs(args)
 
         var a = args.getValue("a") as Double
         var u0 = args.getValue("u") as AbstractMatrix
+        funcService = args.getOrDefault("func", GlobalFunc()) as FuncService
+
 
         for (iterations in 1 until maxIterations) {
-            val grad = GlobalFunc.gradient(u0)
+            val grad = funcService.gradient(u0)
 
             if (GlobalFunc.module(grad) < eps) {
                 return AlgorithmDataContainer(
@@ -35,7 +40,7 @@ class StepDivideMethod: AbstractAlgorithm() {
             }
 
             var u1 = u0 - grad * a
-            while (GlobalFunc.J(u1) >= GlobalFunc.J(u0)) {
+            while (funcService.J(u1) >= funcService.J(u0)) {
                 a /= 2
                 u1 = u0 - grad * a
             }
