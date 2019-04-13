@@ -15,10 +15,6 @@ class StepDivideMethod: AbstractAlgorithm() {
     override val requiredArgs: List<String> get() = listOf("a", "u")
 
 
-    private val eps = GlobalFunc.epsilon
-    lateinit var funcService: FuncService
-
-
     override fun apply(args: Map<String, Any>): DataContainer {
         checkArgs(args)
 
@@ -27,7 +23,7 @@ class StepDivideMethod: AbstractAlgorithm() {
         funcService = args.getOrDefault("func", GlobalFunc()) as FuncService
 
 
-        for (iterations in 1 until maxIterations) {
+        for (iterations in 0 until maxIterations) {
             val grad = funcService.gradient(u0)
 
             if (GlobalFunc.module(grad) < eps) {

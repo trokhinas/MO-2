@@ -12,8 +12,6 @@ class NewtonsMethod: AbstractAlgorithm() {
     override val algName: String get() = "Метод Ньютона"
     override val requiredArgs: List<String> get() = listOf("u")
 
-    lateinit var funcService: FuncService
-
     override fun apply(args: Map<String, Any>): DataContainer {
         checkArgs(args)
 
@@ -22,7 +20,7 @@ class NewtonsMethod: AbstractAlgorithm() {
         funcService = args.getOrDefault("func", GlobalFunc()) as FuncService
 
 
-        for (iterations in 1 until maxIterations) {
+        for (iterations in 0 until maxIterations) {
             var grad = funcService.gradient(u0)
 
             if (GlobalFunc.module(grad) < eps) {

@@ -22,3 +22,9 @@ operator fun AbstractMatrix.minus(matrix: AbstractMatrix): AbstractMatrix {
     throw Error("Вычитание матрицы разной размерности")
 }
 
+operator fun AbstractMatrix.plus(matrix: AbstractMatrix):AbstractMatrix {
+    if (rowsNum == matrix.rowsNum && colsNum == matrix.colsNum)
+        return this.subMatrix(matrix * -1.0)
+    throw Error("Вычитание матрицы разной размерности")
+}
+

@@ -15,15 +15,12 @@ class PenaltyMethod: AbstractAlgorithm() {
     override val algName: String get() = "Метод штрафных функций"
     override val requiredArgs: List<String> get() = listOf("u")
 
-    lateinit var funcService: FuncService
-
     override fun apply(args: Map<String, Any>): DataContainer {
         checkArgs(args)
 
         var u = args.getValue("u") as AbstractMatrix
         funcService = args.getOrDefault("func", GlobalFunc()) as FuncService
 
-        val eps = GlobalFunc.epsilon
         var r = 1.0
         var C = 10
 
@@ -33,11 +30,11 @@ class PenaltyMethod: AbstractAlgorithm() {
             var method = FastDownMethod()
             var anotherFunc = object : GlobalFunc() {
                 override fun JDiff_U1(U: AbstractMatrix): Double {
-                    return super.JDiff_U1(U) - 1.0 / U[0, 0].pow(2)
+                    return super.JDiff_U1(U) - r * 1.0 / U[0, 0].pow(2)
                 }
 
                 override fun JDiff_U2(U: AbstractMatrix): Double {
-                    return super.JDiff_U2(U) - 1.0 / U[0, 1].pow(2)
+                    return super.JDiff_U2(U) - r * 1.0 / U[0, 1].pow(2)
                 }
 
                 override fun J(U: AbstractMatrix): Double {
@@ -74,6 +71,6 @@ class PenaltyMethod: AbstractAlgorithm() {
         val u2 = U[0, 1]
 
 
-        return r * abs(1.0 / u1 + 1.0 / u2)
+        return r * abs(1.0 / (u1 + 5.0) + 1.0 / (u2 - 3.0))
     }
 }

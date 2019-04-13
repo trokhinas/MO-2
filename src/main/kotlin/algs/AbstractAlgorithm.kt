@@ -1,5 +1,8 @@
 package algs
 
+import func.FuncService
+import func.GlobalFunc
+
 
 abstract class AbstractAlgorithm: AlgorithmI {
     protected val iterationErrorMsg = "$algName превысил предел в $maxIterations итераций!"
@@ -11,6 +14,8 @@ abstract class AbstractAlgorithm: AlgorithmI {
         this.args = args
     }
     protected lateinit var args:Map<String, Any>
+    protected lateinit var funcService: FuncService
+    protected val eps = GlobalFunc.epsilon
 
     open val algName: String get() = this.javaClass.name
     open val requiredArgs: List<String> get() = listOf()
