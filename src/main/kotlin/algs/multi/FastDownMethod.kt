@@ -34,7 +34,7 @@ class FastDownMethod: AbstractAlgorithm() {
                 )
             }
 
-            val method = BisectionMethod()
+            val method = GoldenSection()
             val singleFuncService = object : GlobalFunc() {
                 override fun J(U: AbstractMatrix): Double {
                     return funcService.J(u0 - grad * U[0, 0])

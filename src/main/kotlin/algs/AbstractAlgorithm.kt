@@ -19,7 +19,7 @@ abstract class AbstractAlgorithm: AlgorithmI {
 
     open val algName: String get() = this.javaClass.name
     open val requiredArgs: List<String> get() = listOf()
-    open val maxIterations: Int get() = 100
+    open val maxIterations: Int get() = 1000
 
     override fun equals(other: Any?): Boolean {
         if(this === other) return true

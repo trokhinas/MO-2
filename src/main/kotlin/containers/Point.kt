@@ -4,6 +4,7 @@ import extensions.minus
 import extensions.times
 import matrix.AbstractMatrix
 import java.util.*
+import java.util.stream.Collectors
 
 class Point(private val dimension: Int) : AbstractMatrix() {
     private var points: DoubleArray
@@ -79,17 +80,24 @@ class Point(private val dimension: Int) : AbstractMatrix() {
     }
 
     override fun mul(p0: Double): AbstractMatrix {
-        val array = points.copyOf()
-        array.forEach { it * p0 }
+        var array = Array(points.size) {0.0}
+        var i = 0
+        for (point in points)
+            array[i++] = point * p0
 
-        return Point(array.toTypedArray())
+        return Point(array)
     }
 
     override fun addMatrix(p0: AbstractMatrix?): AbstractMatrix {
         if (p0 == null || !isAddable(this, p0))
-            throw Error("Матрицы нескладываемы")
+            throw Error("Не вычитаемые матрицы")
 
-        return this - (p0 * (-1.0))
+        var array = Array(p0.colsNum) {0.0}
+
+        for (i in 0 until p0.colsNum) {
+            array[i] = points[i] + p0[0, i]
+        }
+        return Point(array)
     }
 
 

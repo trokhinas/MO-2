@@ -9,7 +9,7 @@ import kotlin.math.sqrt
 open class GlobalFunc: FuncService {
 
     companion object {
-        const val epsilon: Double = 0.1
+        const val epsilon: Double = 0.01
 
         fun module(U: AbstractMatrix): Double {
             var value = 0.0
@@ -62,23 +62,4 @@ open class GlobalFunc: FuncService {
         return 2.0
     }
 
-    override fun getH(U: AbstractMatrix): AbstractMatrix {
-        val array = arrayOf(
-            doubleArrayOf(JDiff_U1_U1(U), JDiff_U2_U1(U)),
-            doubleArrayOf(JDiff_U1_U2(U), JDiff_U2_U2(U))
-        )
-        return Matrix(array)
-    }
-
-    override fun gradient(U: AbstractMatrix): AbstractMatrix {
-        val coeffs = arrayOf(
-            doubleArrayOf(JDiff_U1(U), JDiff_U2(U))
-        )
-        return Matrix(coeffs)
-    }
-
-    override fun gradValue(U: AbstractMatrix): Double {
-        val gradient = gradient(U)
-        return module(gradient)
-    }
 }
